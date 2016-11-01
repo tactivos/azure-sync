@@ -1,0 +1,4 @@
+commit:
+  message:
+    patterns:
+      - ^(Add|Update|Fix|Merge|Remove|Initial|chore(\(\w+\))?:)\s.{1,64}(\n{2}|$)
