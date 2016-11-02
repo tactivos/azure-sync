@@ -1,5 +1,5 @@
 # azure-sync
-Azure storage file synchronizator
+Azure storage file synchronizer
 
 ### How to use it
 
@@ -10,7 +10,7 @@ There are two different ways to use this repo:
 	2. Call it with with the config described below (returns a promise)
 
 #### Via CLI:
-	1. Just run it (`node ./node_modules/azure-sync/dist`) giving the config described below as environment variables
+	1. Just run it (node ./node_modules/azure-sync/dist) giving the config described below as environment variables
 
 ### Configuration
 
