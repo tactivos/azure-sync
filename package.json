@@ -1,12 +1,15 @@
 {
   "name": "azure-sync",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "author": "mural.co",
-  "keywords": ["azure", "sync"],
-  "license" : "MIT",
+  "keywords": [
+    "azure",
+    "sync"
+  ],
+  "license": "MIT",
   "repository": {
-    "url" : "https://github.com/tactivos/azure-sync"
+    "url": "https://github.com/tactivos/azure-sync"
   },
   "dependencies": {
     "async": "^2.1.2",
