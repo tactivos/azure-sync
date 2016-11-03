@@ -39,7 +39,8 @@ const config = {
       "publicAccessLevel" : "blob"
     }
   },
-  "source": path.resolve('tmp') // it must be a path, path.resolve works perfectly
+  "sources": [path.resolve('tmp') + '/*.js', path.resolve('tmp2') + '/*.png'], // it must be an array of paths, path.resolve works perfectly
+  "verbose": true // if you want to see the current uploaded file
 };
 ```
 
