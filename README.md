@@ -39,6 +39,7 @@ const config = {
       "publicAccessLevel" : "blob"
     }
   },
+  "progress": true, // defaults to false
   "sources": [path.resolve('tmp') + '/*.js', path.resolve('tmp2') + '/*.png'], // it must be an array of paths, path.resolve works perfectly
   "verbose": true // if you want to see the current uploaded file
 };
@@ -50,14 +51,15 @@ The env vars are mapped to the structure above like this:
 
 ```js
 const ENVIRONMENT_CONFIG = {
-	account: process.env.ACCOUNT,
-	accessToken: process.env.ACCESS_TOKEN,
-	container: {
-		name: process.env.CONTAINER_NAME,
-		properties: process.env.CONTAINER_PROPERTIES,
-		policy: process.env.CONTAINER_POLICY
-	},
-	source: process.env.SOURCE,
+  account: process.env.ACCOUNT,
+  accessToken: process.env.ACCESS_TOKEN,
+  container: {
+    name: process.env.CONTAINER_NAME,
+    properties: process.env.CONTAINER_PROPERTIES,
+    policy: process.env.CONTAINER_POLICY
+  },
+  progress: process.env.PROGRESS,
+  source: process.env.SOURCE,
   verbose: process.env.VERBOSE
 };
 ```
