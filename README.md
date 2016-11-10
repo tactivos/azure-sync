@@ -51,16 +51,16 @@ The env vars are mapped to the structure above like this:
 
 ```js
 const ENVIRONMENT_CONFIG = {
-  account: process.env.ACCOUNT,
-  accessToken: process.env.ACCESS_TOKEN,
+  account: process.env.AZURE_SYNC_ACCOUNT,
+  accessToken: process.env.AZURE_SYNC_ACCESS_TOKEN,
   container: {
-    name: process.env.CONTAINER_NAME,
-    properties: process.env.CONTAINER_PROPERTIES,
-    policy: process.env.CONTAINER_POLICY
+    name: process.env.AZURE_SYNC_CONTAINER_NAME,
+    properties: process.env.AZURE_SYNC_CONTAINER_PROPERTIES,
+    policy: process.env.AZURE_SYNC_CONTAINER_POLICY
   },
-  progress: process.env.PROGRESS,
-  source: process.env.SOURCE,
-  verbose: process.env.VERBOSE
+  progress: process.env.AZURE_SYNC_PROGRESS,
+  source: process.env.AZURE_SYNC_SOURCE,
+  verbose: process.env.AZURE_SYNC_VERBOSE
 };
 ```
 
