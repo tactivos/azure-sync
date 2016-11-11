@@ -5,12 +5,37 @@ Azure storage file synchronizer
 
 There are two different ways to use this repo:
 
-#### As a function:
-	1. Import the module
-	2. Call it with with the config described below (returns a promise)
+#### As a function, ex:
+
+```js
+const config = 'your-config';
+const sync = require('azure-sync');
+const path = require('path');
+const chalk = require('chalk');
+
+const azure_conf = {
+  account: config.azure.storage.account,
+  accessKey: config.azure.storage.accessKey,
+  container: {
+    name: config.azure.storage.container.name,
+    properties: config.azure.container.properties,
+    policy: config.azure.container.policy
+  },
+  progress: false,
+  sources: [`${path.resolve('static')}/**`, `${path.resolve('dist')}/**`],
+  verbose: false
+};
+
+sync(azure_conf)
+.then(() => console.log(chalk.yellow(`Finished`)))
+.catch(err => console.log(chalk.red(`Error found when azure-syncing: ${err}`)));
+```
 
 #### Via CLI:
-	1. Just run it (node ./node_modules/azure-sync/dist) giving the config described below as environment variables
+
+```zsh
+AZURE_STORAGE_ACCOUNT=your-account AZURE_STORAGE_ACCESS_KEY=your-access-key (...) node ./node_modules/azure-sync/dist
+```
 
 ### Configuration
 
@@ -21,7 +46,7 @@ Call the module with this params structure. EX:
 ```js
 const config = {
   "account": "<your-azure-account>",
-  "accessToken": "<your-azure-access-token>",
+  "accessKey": "<your-azure-access-key>",
   "container": {
     "name": "test",
     "properties": {
@@ -52,7 +77,7 @@ The env vars are mapped to the structure above like this:
 ```js
 const ENVIRONMENT_CONFIG = {
   account: process.env.AZURE_STORAGE_ACCOUNT,
-  accessToken: process.env.AZURE_STORAGE_ACCESS_KEY,
+  accessKey: process.env.AZURE_STORAGE_ACCESS_KEY,
   container: {
     name: process.env.AZURE_SYNC_CONTAINER_NAME,
     properties: process.env.AZURE_SYNC_CONTAINER_PROPERTIES,
