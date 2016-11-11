@@ -23,7 +23,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && babel lib -d dist",
+    "build": "npm run clean && npm run lint && babel lib -d dist",
     "sync": "node dist/index.js",
     "start": "npm run build && npm run sync",
     "lint": "clear && eslint --fix lib",
