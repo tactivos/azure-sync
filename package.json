@@ -1,6 +1,6 @@
 {
   "name": "azure-sync",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "dist/index.js",
   "author": "mural.co",
   "keywords": [
@@ -26,7 +26,8 @@
     "build": "npm run clean && babel lib -d dist",
     "sync": "node dist/index.js",
     "start": "npm run build && npm run sync",
-    "lint": "clear && eslint --fix lib"
+    "lint": "clear && eslint --fix lib",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
