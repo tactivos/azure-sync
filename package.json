@@ -1,6 +1,6 @@
 {
   "name": "azure-sync",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "main": "dist/index.js",
   "author": "mural.co",
   "keywords": [
