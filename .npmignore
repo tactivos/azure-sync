@@ -8,4 +8,4 @@
 yarn.lock
 lib
 tmp*
-__tests_
+__tests__
