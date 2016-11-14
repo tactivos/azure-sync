@@ -18,6 +18,7 @@ const azure_conf = {
   accessKey: config.azure.storage.accessKey,
   container: {
     name: config.azure.storage.container.name,
+    cache: config.azure.storage.container.cache,
     properties: config.azure.container.properties,
     policy: config.azure.container.policy
   },
@@ -29,6 +30,18 @@ const azure_conf = {
 sync(azure_conf)
 .then(() => console.log(chalk.yellow(`Finished`)))
 .catch(err => console.log(chalk.red(`Error found when azure-syncing: ${err}`)));
+```
+
+#### NOTE: `cache` option has a default value `public, max-age=31536000`, if you want to override it, you can specify a `cachall` like in the example below:
+
+```js
+const azure_conf = {
+  ...,
+  cache: [{
+    match: "*",
+    rule: "public, max-age=1234"
+  }]
+}
 ```
 
 #### Via CLI:
@@ -45,28 +58,35 @@ Call the module with this params structure. EX:
 
 ```js
 const config = {
-  "account": "<your-azure-account>",
-  "accessKey": "<your-azure-access-key>",
-  "container": {
-    "name": "test",
-    "properties": {
-      "Cors": {
-        "CorsRules":  [{
-          "MaxAgeInSeconds": 15,
-          "AllowedOrigins": ["*"],
-          "AllowedMethods": ["GET", "PUT", "OPTIONS"],
-          "AllowedHeaders": ["origin", "x-ms-blob-type*", "Content-Type*"],
-          "ExposedHeaders": ["origin", "x-ms-blob-type*", "Content-Type*"]
+  account: "<your-azure-account>",
+  accessKey: "<your-azure-access-key>",
+  container: {
+    name: "test",
+    cache: [{
+      match: ["path/to/your/file", "path/to/your/file2"],
+      rule: "no-cache, no-store, must-revalidate"
+    }, {
+      match: "*",
+      rule: "public, max-age=31536000"
+    }],
+    properties: {
+      Cors: {
+        CorsRules:  [{
+          MaxAgeInSeconds: 15,
+          AllowedOrigins: ["*"],
+          AllowedMethods: ["GET", "PUT", "OPTIONS"],
+          AllowedHeaders: ["origin", "x-ms-blob-type*", "Content-Type*"],
+          ExposedHeaders: ["origin", "x-ms-blob-type*", "Content-Type*"]
         }]
       }
     },
-    "policy": {
-      "publicAccessLevel" : "blob"
+    policy: {
+      publicAccessLevel : "blob"
     }
   },
-  "progress": true, // defaults to false
-  "sources": [path.resolve('tmp') + '/*.js', path.resolve('tmp2') + '/*.png'], // it must be an array of paths, path.resolve works perfectly
-  "verbose": true // if you want to see the current uploaded file
+  progress: true, // defaults to false
+  sources: [path.resolve('tmp') + '/*.js', path.resolve('tmp2') + '/*.png'], // it must be an array of paths, path.resolve works perfectly
+  verbose: true // if you want to see the current uploaded file
 };
 ```
 
@@ -80,6 +100,7 @@ const ENVIRONMENT_CONFIG = {
   accessKey: process.env.AZURE_STORAGE_ACCESS_KEY,
   container: {
     name: process.env.AZURE_SYNC_CONTAINER_NAME,
+    cache: process.env.AZURE_SYNC_CONTAINER_CACHE,
     properties: process.env.AZURE_SYNC_CONTAINER_PROPERTIES,
     policy: process.env.AZURE_SYNC_CONTAINER_POLICY
   },
@@ -88,5 +109,7 @@ const ENVIRONMENT_CONFIG = {
   verbose: process.env.AZURE_SYNC_VERBOSE
 };
 ```
+
+## You can use the function and the CLI invocation methods with no problem, the parameters will be deep-merged having priority on the ones defined via CLI (you can pass `cache`, `properties`, etc calling it as a function, then define `account` & `accessKey` via CLI and it will work ok)
 
 Cheers 🤖
