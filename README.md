@@ -23,7 +23,11 @@ const azure_conf = {
     policy: config.azure.container.policy
   },
   progress: false,
-  sources: [`${path.resolve('static')}/**`, `${path.resolve('dist')}/**`],
+  sources: [{
+    dir: `${path.resolve('dist')}`,
+    pattern: '/**/*',
+    include: true
+  }],
   verbose: false
 };
 
@@ -85,7 +89,14 @@ const config = {
     }
   },
   progress: true, // defaults to false
-  sources: [path.resolve('tmp') + '/*.js', path.resolve('tmp2') + '/*.png'], // it must be an array of paths, path.resolve works perfectly
+  sources: [{
+    dir: `${path.resolve('dist')}`,
+    pattern: '/**/*',
+    include: true //include folder or not (ex: dist/file.js)
+  }, {
+    dir: `${path.resolve('static')}`,
+    pattern: '/**/*'
+  }]
   verbose: true // if you want to see the current uploaded file
 };
 ```
@@ -105,7 +116,7 @@ const ENVIRONMENT_CONFIG = {
     policy: process.env.AZURE_SYNC_CONTAINER_POLICY
   },
   progress: process.env.AZURE_SYNC_PROGRESS,
-  source: process.env.AZURE_SYNC_SOURCE,
+  sources: process.env.AZURE_SYNC_SOURCES,
   verbose: process.env.AZURE_SYNC_VERBOSE
 };
 ```
