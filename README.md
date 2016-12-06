@@ -19,10 +19,10 @@ const azure_conf = {
   container: {
     name: config.azure.storage.container.name,
     cache: config.azure.storage.container.cache,
-    properties: config.azure.container.properties,
     policy: config.azure.container.policy
   },
   progress: false,
+  service: config.azure.service,
   sources: [{
     dir: `${path.resolve('dist')}`,
     pattern: '/**/*',
@@ -73,6 +73,12 @@ const config = {
       match: "*",
       rule: "public, max-age=31536000"
     }],
+    policy: {
+      publicAccessLevel : "blob"
+    }
+  },
+  progress: true, // defaults to false
+  service: {
     properties: {
       Cors: {
         CorsRules:  [{
@@ -84,11 +90,8 @@ const config = {
         }]
       }
     },
-    policy: {
-      publicAccessLevel : "blob"
-    }
+    overwrite: true // defaults to false
   },
-  progress: true, // defaults to false
   sources: [{
     dir: `${path.resolve('dist')}`,
     pattern: '/**/*',
@@ -112,10 +115,10 @@ const ENVIRONMENT_CONFIG = {
   container: {
     name: process.env.AZURE_SYNC_CONTAINER_NAME,
     cache: process.env.AZURE_SYNC_CONTAINER_CACHE,
-    properties: process.env.AZURE_SYNC_CONTAINER_PROPERTIES,
     policy: process.env.AZURE_SYNC_CONTAINER_POLICY
   },
   progress: process.env.AZURE_SYNC_PROGRESS,
+  service: process.env.AZURE_SYNC_SERVICE,
   sources: process.env.AZURE_SYNC_SOURCES,
   verbose: process.env.AZURE_SYNC_VERBOSE
 };
